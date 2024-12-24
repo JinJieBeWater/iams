@@ -8,10 +8,10 @@
 #include <QNetworkReply>
 #include <QEventLoop>
 #include <QFile>
-#include "Utils.h"
+#include "Log.h"
 #include <QUrl>
 
-#include "Utils.h"
+#include "Log.h"
 
 /**
  * @brief HTTP请求方法枚举

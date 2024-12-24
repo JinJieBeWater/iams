@@ -6,7 +6,7 @@
 
 #include <QSerialPort>
 
-#include "Utils.h"
+#include "Log.h"
 
 namespace Ui
 {

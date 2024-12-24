@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QTcpSocket>
 
-#include "Utils.h"
+#include "Log.h"
 
 namespace Ui
 {
