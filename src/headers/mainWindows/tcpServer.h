@@ -6,7 +6,7 @@
 #include <QTcpSocket>
 // #include <QVariant>
 #include "getAvailNwkAddrs.h"
-#include "Logger.h"
+#include "Utils.h"
 #include "AvailNwkAddrCB.h"
 
 namespace Ui

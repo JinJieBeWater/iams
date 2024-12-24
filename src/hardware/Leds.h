@@ -3,7 +3,7 @@
 #ifndef Leds_H
 #define Leds_H
 
-#include "Logger.h"
+#include "Utils.h"
 
 extern "C"
 {

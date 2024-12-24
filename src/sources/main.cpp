@@ -1,8 +1,10 @@
 #include "iams.h"
-#include "Logger.h"
+#include "Utils.h"
 
 #include <QApplication>
 // #pragma comment(lib, "user32.lib")
+
+// #define Log(...) qDebug(__VA_ARGS__).noquote().nospace() << "[" << QFileInfo(__FILE__).fileName() << ":" << __LINE__ << "]: "
 
 /**
  * @brief 应用程序的入口点
@@ -14,7 +16,7 @@ int main(int argc, char *argv[])
 {
 
 #ifdef _WIN32
-    qSetMessagePattern("[%{file}](%{function}:%{line}): \n  %{message}");
+    // qSetMessagePattern("[%{file}](%{function}:%{line}): \n  %{message}");
     Log() << "Windows";
 
 #else

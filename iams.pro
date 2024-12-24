@@ -57,5 +57,3 @@ CONFIG += static
 
 #开启串口支持
 QT += serialport
-
-

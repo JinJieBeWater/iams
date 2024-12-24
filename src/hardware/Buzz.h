@@ -3,7 +3,7 @@
 #ifndef BUZZ_H
 #define BUZZ_H
 
-#include "Logger.h"
+#include "Utils.h"
 
 extern "C"
 {

@@ -4,7 +4,7 @@
 #include "udpMW.h"
 #include "dashboard.h"
 #include "httpTest.h"
-#include "Logger.h"
+#include "Utils.h"
 #include <QMessageBox>
 #ifndef _WIN32
 #include "serialPortTest.h"

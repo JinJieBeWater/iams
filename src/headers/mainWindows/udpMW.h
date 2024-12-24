@@ -4,7 +4,7 @@
 #include <QMainWindow>
 #include <QUdpSocket>
 
-#include "Logger.h"
+#include "Utils.h"
 #include "AvailNwkAddrCB.h"
 
 #ifndef _WIN32
