@@ -8,8 +8,8 @@ serialPortTest::serialPortTest(QWidget *parent) : QMainWindow(parent),
 
     if (!QFile::exists("/dev/ttySAC2"))
     {
-        Log() << "串口设备 /dev/ttySAC2 不存在";
-        QMessageBox::information(this, "提示", "串口设备不存在");
+        Log() << "Serial device/dev/ttySAC2 does not exist";
+        QMessageBox::information(this, "tips", "Serial device/dev/ttySAC2 does not exist");
         return;
     }
 
@@ -32,12 +32,12 @@ serialPortTest::serialPortTest(QWidget *parent) : QMainWindow(parent),
     if (serialPort->open(QIODevice::ReadWrite))
     {
         Log() << "open success";
-        QMessageBox::information(this, "提示", "串口打开成功");
+        QMessageBox::information(this, "tips", "serial port open success");
     }
     else
     {
         Log() << "open failed";
-        QMessageBox::information(this, "提示", "串口打开失败");
+        QMessageBox::information(this, "提示", "serial port open failed");
     }
 
     connect(serialPort, &QSerialPort::readyRead, this, &serialPortTest::on_readyRead);
@@ -62,7 +62,7 @@ serialPortTest::~serialPortTest()
 void serialPortTest::on_sendButton_clicked()
 {
     // 获取发送数据
-    Log() << "on_sendButton_clicked";
+    Log() << "write: " << ui->sendLineEdit->text().trimmed();
     QString str = ui->sendLineEdit->text().trimmed();
     serialPort->write(str.toUtf8());
     Log() << "send: " << str;
@@ -71,25 +71,25 @@ void serialPortTest::on_sendButton_clicked()
 void serialPortTest::on_statusButton_clicked()
 {
     // 获取状态
-    Log() << "on_statusButton_clicked";
+    Log() << "AT\r\n";
     serialPort->write("AT\r\n");
 }
 
 void serialPortTest::on_setNameButton_clicked()
 {
-    Log() << "on_setNameButton_clicked";
+    Log() << "AT+NAMEJinJieBeWater\r\n";
     serialPort->write("AT+NAMEJinJieBeWater\r\n");
 }
 
 void serialPortTest::on_getPwdButton_clicked()
 {
-    Log() << "on_getPwdButton_clicked";
+    Log() << "AT+PIN\r\n";
     serialPort->write("AT+PIN\r\n");
 }
 
 void serialPortTest::on_setPwdButton_clicked()
 {
-    Log() << "on_setPwdButton_clicked";
+    Log() << "AT+PWD123456\r\n";
     serialPort->write("AT+PWD123456\r\n");
 }
 

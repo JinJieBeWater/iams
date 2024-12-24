@@ -54,7 +54,7 @@ iams::~iams()
  */
 void iams::on_cancel_clicked()
 {
-    QMessageBox::information(this, "提示", "再退出就没有页面啦！");
+    QMessageBox::information(this, "tips", "If you quit again, there will be no page!");
 }
 
 void iams::on_login_clicked()
