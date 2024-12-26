@@ -16,12 +16,13 @@
 #include <QMessageBox>
 #include <MQTTAsync.h>
 
-class MqttClient : public QObject
+#include "Log.h"
+
+class MqttClient
 {
-    Q_OBJECT
 
 public:
-    explicit MqttClient(QObject *parent = nullptr);
+    explicit MqttClient();
     ~MqttClient();
 
     bool connectToServer();

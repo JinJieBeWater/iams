@@ -11,8 +11,8 @@ QString createTopic(const QString &username)
 QString createPayload(int luminance)
 {
     QJsonObject service;
-    service["service_id"] = "Luminance_Sensor";                    // 服务ID
-    service["properties"] = QJsonObject{{"luminance", luminance}}; // 属性
+    service["service_id"] = "Iams"; // 服务ID
+    service["properties"] = QJsonObject{{"luminance", luminance}};
 
     // 使用当前时间戳
     service["eventTime"] = QDateTime::currentDateTime().toString(Qt::ISODate); // 事件时间
@@ -24,6 +24,7 @@ QString createPayload(int luminance)
     json["services"] = services;
 
     QJsonDocument doc(json);
+
     return QString(doc.toJson(QJsonDocument::Compact)); // 返回紧凑格式的 JSON 字符串
 }
 
@@ -32,7 +33,7 @@ mqttTest::mqttTest(QWidget *parent)
 {
     ui->setupUi(this);
 
-    mqttClient = new MqttClient(this);
+    mqttClient = new MqttClient();
 
     // Connect to the MQTT server
     if (!mqttClient->connectToServer())
@@ -57,9 +58,24 @@ mqttTest::~mqttTest()
 
 void mqttTest::onReportBtClicked()
 {
-    QString username = "676c58a32ff1872637cabf32_Demo_Streetlamp"; // 设备名称
-    static int luminance = 0;                                      // 你要上报的数据
+    QString username = "676b50b12ff1872637ca7a23_myNodeId"; // 设备名称
+    static int luminance = 0;                               // 你要上报的数据
+
+    // // BUZZ 布尔
+    // static bool buzz = false;
+    // // LED 布尔
+    // static bool led = true;
+    // temperature 小数
+    // static float temperature = 25.5;
+    // humidify 小数
+    // static float humidity = 50.0;
+
     luminance++;
+    // buzz = !buzz;
+    // led = !led;
+    // temperature += 0.1;
+    // humidity += 0.1;
+
     // 构造消息内容（payload）
     QString payload = createPayload(luminance);
 

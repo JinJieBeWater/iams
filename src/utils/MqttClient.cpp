@@ -3,8 +3,7 @@
 MQTTAsync_connectOptions connOpts = MQTTAsync_connectOptions_initializer;
 MQTTAsync_SSLOptions sslOpts = MQTTAsync_SSLOptions_initializer;
 
-MqttClient::MqttClient(QObject *parent)
-    : QObject(parent), client(nullptr), isConnected(false)
+MqttClient::MqttClient()
 {
     uri = "ee99faaa8c.st1.iotda-device.cn-north-4.myhuaweicloud.com";
     port = 1883;
@@ -31,11 +30,11 @@ MqttClient::MqttClient(QObject *parent)
 
         if (loginTimestamp == nullptr)
         {
-            qDebug() << "Failure to get the timestamp";
+            Log() << "Failure to get the timestamp";
         }
         else
         {
-            qDebug() << "Get the timestamp success";
+            Log() << "Get the timestamp success";
         }
 
         EncryptionHelper encryptionHelper(password);
@@ -45,11 +44,11 @@ MqttClient::MqttClient(QObject *parent)
         int encryptedRet = encryptionHelper.GetEncryptedPassword(loginTimestamp, encrypted_password);
         if (encryptedRet != 0)
         {
-            qDebug() << "Failed to obtain the encrypted password";
+            Log() << "Failed to obtain the encrypted password";
         }
         else
         {
-            qDebug() << "The encrypted password was obtained successfully: " << encrypted_password;
+            Log() << "The encrypted password was obtained successfully: " << encrypted_password;
         }
 
         QString clientId = nullptr;
@@ -64,12 +63,12 @@ MqttClient::MqttClient(QObject *parent)
 
         if (createRet)
         {
-            qDebug() << "mqtt_connect() MQTTAsync_create error, result " << createRet;
+            Log() << "mqtt_connect() MQTTAsync_create error, result " << createRet;
         }
         else
         {
             mqttClientCreateFlag = 1;
-            qDebug() << "mqtt_connect() mqttClientCreateFlag = 1.\n";
+            Log() << "mqtt_connect() mqttClientCreateFlag = 1.\n";
         }
 
         MQTTAsync_setCallbacks(client, nullptr, onConnectionLost, onMessageArrive, nullptr);
@@ -88,7 +87,7 @@ bool MqttClient::connectToServer()
 {
     if (isConnected)
     {
-        qDebug() << "Already connected to the MQTT server.";
+        Log() << "Already connected to the MQTT server.";
         return true;
     }
 
@@ -131,14 +130,14 @@ bool MqttClient::connectToServer()
 void MqttClient::onMessageReceived(const QString &topic, const QByteArray &message)
 {
     // 打印接收到的 topic 和 payload
-    qDebug() << "Topic: " << topic;
-    qDebug() << "Payload: " << message;
+    Log() << "Topic: " << topic;
+    Log() << "Payload: " << message;
 
     // 解析 JSON 数据
     QJsonDocument doc = QJsonDocument::fromJson(message);
     if (!doc.isObject())
     {
-        qDebug() << "Invalid JSON format!";
+        Log() << "Invalid JSON format!";
         return;
     }
 
@@ -154,10 +153,10 @@ void MqttClient::onMessageReceived(const QString &topic, const QByteArray &messa
     QString value = paras.value("value").toString();
 
     // 打印解析后的数据
-    qDebug() << "Object Device ID: " << objectDeviceId;
-    qDebug() << "Command Name: " << commandName;
-    qDebug() << "Service ID: " << serviceId;
-    qDebug() << "Paras Value: " << value;
+    Log() << "Object Device ID: " << objectDeviceId;
+    Log() << "Command Name: " << commandName;
+    Log() << "Service ID: " << serviceId;
+    Log() << "Paras Value: " << value;
 
     // 你可以根据解析的内容进行相应的处理
     if (commandName == "ON_OFF")
@@ -165,11 +164,11 @@ void MqttClient::onMessageReceived(const QString &topic, const QByteArray &messa
         // 执行打开或关闭操作
         if (value == "1")
         {
-            qDebug() << "Turn ON the device.";
+            Log() << "Turn ON the device.";
         }
         else if (value == "0")
         {
-            qDebug() << "Turn OFF the device.";
+            Log() << "Turn OFF the device.";
         }
     }
 }
@@ -197,7 +196,7 @@ bool MqttClient::publishMessage(const QString &topic, const QString &message)
     if (ret != MQTTASYNC_SUCCESS)
     {
         handleError("Failed to publish message, error code: " + QString::number(ret));
-        qDebug() << "Error code: " << ret;
+        Log() << "Error code: " << ret;
         return false;
     }
 
@@ -208,7 +207,7 @@ int MqttClient::onMessageArrive(void *context, char *topicName, int topicLen, MQ
 {
     Q_UNUSED(context);
     Q_UNUSED(topicLen);
-    qDebug() << "Message arrived, topic: " << topicName << ", message: " << message->payload;
+    Log() << "Message arrived, topic: " << topicName << ", message: " << message->payload;
 
     return 1;
 }
@@ -241,54 +240,54 @@ bool MqttClient::subscribeToTopic(const QString &topic)
 
 void MqttClient::handleError(const QString &errorMessage)
 {
-    qDebug() << errorMessage;
+    Log() << errorMessage;
 }
 
 void MqttClient::onConnectSuccess(void *context, MQTTAsync_successData *response)
 {
     Q_UNUSED(context);
     Q_UNUSED(response);
-    qDebug() << "Connected successfully.";
+    Log() << "Connected successfully.";
 }
 
 void MqttClient::onConnectFailure(void *context, MQTTAsync_failureData *response)
 {
     Q_UNUSED(context);
     Q_UNUSED(response);
-    qDebug() << "Connection failed, code: " << response->code;
+    Log() << "Connection failed, code: " << response->code;
 }
 
 void MqttClient::onConnectionLost(void *context, char *cause)
 {
     Q_UNUSED(context);
     Q_UNUSED(cause);
-    qDebug() << "Connection lost, cause: " << cause;
+    Log() << "Connection lost, cause: " << cause;
 }
 
 void MqttClient::onPublishSuccess(void *context, MQTTAsync_successData *response)
 {
     Q_UNUSED(context);
     Q_UNUSED(response);
-    qDebug() << "Message published successfully.";
+    Log() << "Message published successfully.";
 }
 
 void MqttClient::onPublishFailure(void *context, MQTTAsync_failureData *response)
 {
     Q_UNUSED(context);
-    qDebug() << "Publish failed, code: " << response->code;
-    qDebug() << "Error message: " << response->message;
+    Log() << "Publish failed, code: " << response->code;
+    Log() << "Error message: " << response->message;
 }
 
 void MqttClient::onSubscribeSuccess(void *context, MQTTAsync_successData *response)
 {
     Q_UNUSED(context);
     Q_UNUSED(response);
-    qDebug() << "Subscribed to topic successfully.";
+    Log() << "Subscribed to topic successfully.";
 }
 
 void MqttClient::onSubscribeFailure(void *context, MQTTAsync_failureData *response)
 {
     Q_UNUSED(context);
     Q_UNUSED(response);
-    qDebug() << "Subscription failed, code: " << response->code;
+    Log() << "Subscription failed, code: " << response->code;
 }
