@@ -110,6 +110,11 @@ void mqttTest::on_readyRead()
 
         ui->temperatureKeyValue->setText(QString::number(temperature));
         ui->humidityKeyValue->setText(QString::number(humidity));
+
+        // 使用 QString::arg() 替代字符串拼接，可以提高性能和可读性
+        // arg() 方法比 + 运算符更高效，因为它避免了创建临时字符串对象
+        // 同时使用 arg() 使代码更容易维护和理解
+        ui->sensorPlainTextEdit->appendPlainText(QString("温度:%1,湿度:%2").arg(temperature).arg(humidity));
     }
 }
 void mqttTest::onReportBtClicked()
@@ -148,10 +153,12 @@ void mqttTest::onReportBtClicked()
     if (success)
     {
         Log() << "Data reported successfully!";
+        ui->sensorPlainTextEdit->appendPlainText("数据上报成功: " + payload.toUtf8().constData());
     }
     else
     {
         Log() << "Failed to report data.";
+        ui->sensorPlainTextEdit->appendPlainText("数据上报失败");
     }
 }
 
