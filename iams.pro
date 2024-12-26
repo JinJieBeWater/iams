@@ -127,3 +127,18 @@ DISTFILES += \
     lib/test/test95 \
     lib/test/test_mqtt4async \
     lib/test/test_mqtt4sync
+
+build_type =
+CONFIG(debug, debug|release) {
+    build_type = debug
+} else {
+    build_type = release
+}
+
+
+# 指定输出目录
+DESTDIR = $$PWD/linux_build/$${build_type}/out
+OBJECTS_DIR = $$PWD/linux_build/$${build_type}/obj
+MOC_DIR = $$PWD/linux_build/$${build_type}/moc
+RCC_DIR = $$PWD/linux_build/$${build_type}/rcc
+UI_DIR = $$PWD/linux_build/$${build_type}/ui
