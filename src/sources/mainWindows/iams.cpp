@@ -28,6 +28,7 @@ iams::iams(QWidget *parent)
 #endif // _WIN32
 
     MqttTest = new mqttTest(this);
+    MqttTest->show();
 
     // 默认设置用户名和密码
     ui->usernameLineEdit->setText("admin");

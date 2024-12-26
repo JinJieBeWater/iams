@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include <QMessageBox>
+#include <QSerialPort>
 
 #include "StringUtil.h"
 #include "MqttClient.h"
@@ -25,9 +26,12 @@ public:
 
 private slots:
     void onReportBtClicked();
+    void on_readyRead();
 
 private:
     Ui::mqttTest *ui;
     MqttClient *mqttClient;
+
+    QSerialPort *serialPort;
 };
 #endif // MQTTTEST_H

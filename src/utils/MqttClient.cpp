@@ -18,6 +18,8 @@ MqttClient::MqttClient()
     connOpts.onSuccess = onConnectSuccess;
     connOpts.onFailure = onConnectFailure;
 
+    Log() << "MqttClient()";
+
     if (!mqttClientCreateFlag)
     {
         temp_authMode = "_0_0_";
@@ -57,7 +59,15 @@ MqttClient::MqttClient()
 
         loginTimestamp = nullptr;
 
+        Log() << "uri: " << uri.toUtf8().constData();
+        Log() << "uri: " << uri.toUtf8().constData();
+
+        Log() << "clientId: " << clientId.toStdString().c_str();
+        Log() << "clientId: " << clientId.toStdString().c_str();
+
         int createRet = MQTTAsync_create(&client, uri.toUtf8().constData(), clientId.toStdString().c_str(), MQTTCLIENT_PERSISTENCE_NONE, nullptr);
+
+        Log() << "createRet: " << createRet;
 
         clientId = nullptr;
 
@@ -85,6 +95,8 @@ MqttClient::~MqttClient()
 
 bool MqttClient::connectToServer()
 {
+    Log() << "Connecting to the MQTT server...";
+    Log() << "isConnected: " << isConnected;
     if (isConnected)
     {
         Log() << "Already connected to the MQTT server.";
@@ -122,6 +134,7 @@ bool MqttClient::connectToServer()
     {
         encrypted_password = nullptr;
     }
+    Log() << "Connected to the MQTT server.";
     isConnected = true; // 连接成功后设置为 true
     return true;
 }

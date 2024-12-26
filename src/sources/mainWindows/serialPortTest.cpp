@@ -32,12 +32,10 @@ serialPortTest::serialPortTest(QWidget *parent) : QMainWindow(parent),
     if (serialPort->open(QIODevice::ReadWrite))
     {
         Log() << "open success";
-        QMessageBox::information(this, "tips", "serial port open success");
     }
     else
     {
         Log() << "open failed";
-        QMessageBox::information(this, "提示", "serial port open failed");
     }
 
     connect(serialPort, &QSerialPort::readyRead, this, &serialPortTest::on_readyRead);

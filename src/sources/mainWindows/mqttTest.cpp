@@ -15,7 +15,7 @@ QString createPayload(int luminance)
     service["properties"] = QJsonObject{{"luminance", luminance}};
 
     // 使用当前时间戳
-    service["eventTime"] = QDateTime::currentDateTime().toString(Qt::ISODate); // 事件时间
+    // service["eventTime"] = QDateTime::currentDateTime().toString(Qt::ISODate); // 事件时间
 
     QJsonArray services;
     services.append(service);
@@ -33,7 +33,42 @@ mqttTest::mqttTest(QWidget *parent)
 {
     ui->setupUi(this);
 
+    if (!QFile::exists("/dev/ttySAC1"))
+    {
+        Log() << "Serial device/dev/ttySAC1 does not exist";
+        return;
+    }
+
+    // 创建串口对象，设置串口设备为/dev/ttySAC0
+    serialPort = new QSerialPort(this);
+    // 设置串口名称为/dev/ttySAC0
+    serialPort->setPortName("/dev/ttySAC1");
+    // 设置波特率为115200
+    serialPort->setBaudRate(QSerialPort::Baud115200);
+    // 设置数据位为8位
+    serialPort->setDataBits(QSerialPort::Data8);
+    // 设置校验位为无校验
+    serialPort->setParity(QSerialPort::NoParity);
+    // 设置停止位为1位
+    serialPort->setStopBits(QSerialPort::OneStop);
+    // 设置流控制为无流控制
+    serialPort->setFlowControl(QSerialPort::NoFlowControl);
+
+    // 打开串口
+    if (serialPort->open(QIODevice::ReadWrite))
+    {
+        Log() << "open success";
+    }
+    else
+    {
+        Log() << "open failed";
+    }
+
+    connect(serialPort, &QSerialPort::readyRead, this, &mqttTest::on_readyRead);
+
+    Log() << "new MqttClient()";
     mqttClient = new MqttClient();
+    Log() << "new MqttClient() end";
 
     // Connect to the MQTT server
     if (!mqttClient->connectToServer())
@@ -54,6 +89,11 @@ mqttTest::mqttTest(QWidget *parent)
 mqttTest::~mqttTest()
 {
     delete ui;
+}
+
+void mqttTest::on_readyRead()
+{
+    Log() << "recv: " << serialPort->portName() << ": " << serialPort->readAll();
 }
 
 void mqttTest::onReportBtClicked()
