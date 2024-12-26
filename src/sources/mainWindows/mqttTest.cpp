@@ -8,11 +8,11 @@ QString createTopic(const QString &username)
 }
 
 // 生成消息内容（Payload）
-QString createPayload(int luminance)
+QString createPayload(int temperature, int humidity)
 {
     QJsonObject service;
     service["service_id"] = "Iams"; // 服务ID
-    service["properties"] = QJsonObject{{"luminance", luminance}};
+    service["properties"] = QJsonObject{{"temperature", temperature}, {"humidity", humidity}};
 
     // 使用当前时间戳
     // service["eventTime"] = QDateTime::currentDateTime().toString(Qt::ISODate); // 事件时间
@@ -93,13 +93,28 @@ mqttTest::~mqttTest()
 
 void mqttTest::on_readyRead()
 {
-    Log() << "recv: " << serialPort->portName() << ": " << serialPort->readAll();
-}
+    QString data = serialPort->readAll();
+    Log() << "recv: " << serialPort->portName() << ": " << data;
+    QStringList dataList = data.split(",");
+    Log() << "dataList: " << dataList;
+    if (dataList.size() == 2)
+    {
+        QString tempStr = dataList[0].trimmed();
+        tempStr.chop(1); // 移除末尾的'C'字符
+        temperature = tempStr.toInt();
 
+        QString humStr = dataList[1].trimmed();
+        humStr.chop(1); // 移除末尾的'H'字符
+        humidity = humStr.toInt();
+
+        ui->temperatureKeyValue->setText(QString::number(temperature));
+        ui->humidityKeyValue->setText(QString::number(humidity));
+    }
+}
 void mqttTest::onReportBtClicked()
 {
     QString username = "676b50b12ff1872637ca7a23_myNodeId"; // 设备名称
-    static int luminance = 0;                               // 你要上报的数据
+    // static int luminance = 0;                               // 你要上报的数据
 
     // // BUZZ 布尔
     // static bool buzz = false;
@@ -110,14 +125,14 @@ void mqttTest::onReportBtClicked()
     // humidify 小数
     // static float humidity = 50.0;
 
-    luminance++;
+    // luminance++;
     // buzz = !buzz;
     // led = !led;
     // temperature += 0.1;
     // humidity += 0.1;
 
     // 构造消息内容（payload）
-    QString payload = createPayload(luminance);
+    QString payload = createPayload(temperature, humidity);
 
     // 构造上报主题
     QString report_topic = StringUtil::combineStrings(3, "$oc/devices/", username.toStdString().c_str(), "/sys/properties/report");

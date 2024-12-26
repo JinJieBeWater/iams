@@ -33,5 +33,10 @@ private:
     MqttClient *mqttClient;
 
     QSerialPort *serialPort;
+
+    // 温度数据
+    int temperature = 0;
+    // 湿度数据
+    int humidity = 0;
 };
 #endif // MQTTTEST_H
