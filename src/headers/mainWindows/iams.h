@@ -4,6 +4,7 @@
 #include "udpMW.h"
 #include "dashboard.h"
 #include "httpTest.h"
+#include "mqttTest.h"
 #include "Log.h"
 #include <QMessageBox>
 #ifndef _WIN32
@@ -86,4 +87,9 @@ private:
      */
     serialPortTest *SerialPortTest;
 #endif // _WIN32
+
+    /**
+     * @brief   指向 mqttTest 类的指针，用于管理和操作 mqttTest 窗口
+     */
+    mqttTest *MqttTest;
 };

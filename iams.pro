@@ -22,14 +22,20 @@ SOURCES += \
 HEADERS += \
     $$files($$PWD/src/headers/*.h) \
     $$files($$PWD/src/headers/mainWindows/*.h) \
-    $$files($$PWD/src/headers/widgets/*.h) \
+    $$files($$PWD/src/headers/widgets/*.h)
+
     
 # 添加头文件路径
 INCLUDEPATH += $$PWD/src/headers \
     $$PWD/src/headers/mainWindows \
     $$PWD/src/headers/widgets \
     $$PWD/src/utils \
-    $$PWD/src/hardware
+    $$PWD/src/hardware \
+    $$PWD/include/base \
+    $$PWD/include/openssl \
+    $$PWD/include/util \
+    $$PWD/include
+
 
 # 指定 UI 文件路径
 FORMS += \
@@ -57,3 +63,56 @@ CONFIG += static
 
 #开启串口支持
 QT += serialport
+
+# 指定动态库编译
+DISTFILES += \
+    lib/engines-1.1/capi.so \
+    lib/engines-1.1/padlock.so \
+    lib/libanl-2.23.so \
+    lib/libanl.so.1 \
+    lib/libcrypto.a \
+    lib/libcrypto.so \
+    lib/libcrypto.so.1.1 \
+    lib/libpaho-mqtt3a.so \
+    lib/libpaho-mqtt3a.so.1 \
+    lib/libpaho-mqtt3a.so.1.3 \
+    lib/libpaho-mqtt3as.so \
+    lib/libpaho-mqtt3as.so.1 \
+    lib/libpaho-mqtt3as.so.1.3 \
+    lib/libpaho-mqtt3c.so \
+    lib/libpaho-mqtt3c.so.1 \
+    lib/libpaho-mqtt3c.so.1.3 \
+    lib/libpaho-mqtt3cs.so \
+    lib/libpaho-mqtt3cs.so.1 \
+    lib/libpaho-mqtt3cs.so.1.3 \
+    lib/libssl.a \
+    lib/libssl.so \
+    lib/libssl.so.1.1 \
+    lib/paho_c_version \
+    lib/pkgconfig/libcrypto.pc \
+    lib/pkgconfig/libssl.pc \
+    lib/pkgconfig/openssl.pc \
+    lib/samples/MQTTAsync_publish \
+    lib/samples/MQTTAsync_subscribe \
+    lib/samples/MQTTClient_publish \
+    lib/samples/MQTTClient_publish_async \
+    lib/samples/MQTTClient_subscribe \
+    lib/samples/paho_c_pub \
+    lib/samples/paho_c_sub \
+    lib/samples/paho_cs_pub \
+    lib/samples/paho_cs_sub \
+    lib/test/sync_client_test \
+    lib/test/test1 \
+    lib/test/test10 \
+    lib/test/test11 \
+    lib/test/test15 \
+    lib/test/test2 \
+    lib/test/test3 \
+    lib/test/test4 \
+    lib/test/test45 \
+    lib/test/test5 \
+    lib/test/test6 \
+    lib/test/test9 \
+    lib/test/test95 \
+    lib/test/test_mqtt4async \
+    lib/test/test_mqtt4sync

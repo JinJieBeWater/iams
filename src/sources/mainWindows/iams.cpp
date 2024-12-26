@@ -22,9 +22,13 @@ iams::iams(QWidget *parent)
     UdpMW = new udpMW(this);
     Dashboard = new dashboard(this);
     HttpTest = new httpTest(this);
+
 #ifndef _WIN32
     SerialPortTest = new serialPortTest(this);
 #endif // _WIN32
+
+    MqttTest = new mqttTest(this);
+
     // 默认设置用户名和密码
     ui->usernameLineEdit->setText("admin");
     ui->passwordLineEdit->setText("123456");
@@ -34,6 +38,7 @@ iams::iams(QWidget *parent)
     ui->protocolComboBox->addItem("TCP 客户端");
     ui->protocolComboBox->addItem("UDP 测试");
     ui->protocolComboBox->addItem("HTTP 测试");
+    ui->protocolComboBox->addItem("MQTT 测试");
 #ifndef _WIN32
     ui->protocolComboBox->addItem("蓝牙串口测试");
 #endif // _WIN32
@@ -116,4 +121,8 @@ void iams::on_goToTestButton_clicked()
         SerialPortTest->show();
     }
 #endif // _WIN32
+    else if (protocol == "MQTT 测试")
+    {
+        MqttTest->show();
+    }
 }
