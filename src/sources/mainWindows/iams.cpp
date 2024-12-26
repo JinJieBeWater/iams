@@ -45,7 +45,7 @@ iams::iams(QWidget *parent)
 #endif // _WIN32
 
 #ifdef _UNIX
-    ui->protocolComboBox->addItem("MQTT 测试");
+    ui->protocolComboBox->addItem("采集温湿度通过MQTT上传云平台");
 #endif // _UNIX
 
     // 设置协议选择器默认选项
@@ -128,7 +128,7 @@ void iams::on_goToTestButton_clicked()
     }
 #endif // _WIN32
 #ifdef _UNIX
-    else if (protocol == "MQTT 测试")
+    else if (protocol == "采集温湿度通过MQTT上传云平台")
     {
         MqttTest->show();
     }
