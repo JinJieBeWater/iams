@@ -9,11 +9,20 @@ Buzz::Buzz()
   {
     fprintf(stderr, "Can not open %s : %s !\n", DEVICE_BUZZ, strerror(errno));
   }
+  else
+  {
+    is_on = false;
+  }
 }
 
 Buzz::~Buzz()
 {
   ::close(buzz_fd);
+}
+
+bool Buzz::isOn()
+{
+  return is_on;
 }
 
 void Buzz::on()
@@ -24,6 +33,10 @@ void Buzz::on()
   {
     Log() << "ioctl BUZZ_ON failed";
   }
+  else
+  {
+    is_on = true;
+  }
 }
 
 void Buzz::off()
@@ -33,6 +46,10 @@ void Buzz::off()
   if (ret == -1)
   {
     Log() << "ioctl BUZZ_OFF failed";
+  }
+  else
+  {
+    is_on = false;
   }
 }
 

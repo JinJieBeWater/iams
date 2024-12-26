@@ -27,12 +27,21 @@ void Leds::on(int led_command)
     ioctl(leds_fd, LED2, LED_ON);
     ioctl(leds_fd, LED3, LED_ON);
     ioctl(leds_fd, LED4, LED_ON);
+    led_status[0] = true;
+    led_status[1] = true;
+    led_status[2] = true;
+    led_status[3] = true;
+    led_status[4] = true;
   }
 
   int ret = ioctl(leds_fd, led_command, LED_ON);
   if (ret == -1)
   {
     Log() << "ioctl " << led_command << " failed";
+  }
+  else
+  {
+    led_status[led_command] = true;
   }
 }
 
@@ -46,12 +55,26 @@ void Leds::off(int led_command)
     ioctl(leds_fd, LED2, LED_OFF);
     ioctl(leds_fd, LED3, LED_OFF);
     ioctl(leds_fd, LED4, LED_OFF);
+    led_status[0] = false;
+    led_status[1] = false;
+    led_status[2] = false;
+    led_status[3] = false;
+    led_status[4] = false;
   }
   int ret = ioctl(leds_fd, led_command, LED_OFF); // 1灯灭
   if (ret == -1)
   {
     Log() << "ioctl " << led_command << " failed";
   }
+  else
+  {
+    led_status[led_command] = false;
+  }
+}
+
+bool *Leds::getLedStatus()
+{
+  return led_status;
 }
 
 #else

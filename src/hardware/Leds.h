@@ -30,7 +30,6 @@ extern "C"
 
 #define DEVCIE_LEDS "/dev/leds_misc"
 }
-
 class Leds
 {
 public:
@@ -39,9 +38,15 @@ public:
 
   void on(int led_command = 0);
   void off(int led_command = 0);
+  bool *getLedStatus();
 
 private:
   int leds_fd;
+  // 使用数组替代QList，因为:
+  // 1. LED状态数量固定为4个，不需要动态扩容
+  // 2. 数组访问性能更好，内存布局连续
+  // 3. 不需要Qt容器的复杂功能
+  bool led_status[5] = {false};
 };
 
 #else

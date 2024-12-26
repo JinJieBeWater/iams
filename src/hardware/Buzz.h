@@ -31,11 +31,14 @@ public:
   Buzz();
   ~Buzz();
 
+  bool isOn();
+
   void on();
   void off();
 
 private:
   int buzz_fd;
+  bool is_on;
 };
 
 #else
