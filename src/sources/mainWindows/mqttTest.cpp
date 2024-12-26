@@ -1,3 +1,4 @@
+#ifdef _UNIX
 #include "mqttTest.h"
 #include "ui_mqttTest.h"
 
@@ -94,9 +95,9 @@ mqttTest::~mqttTest()
 void mqttTest::on_readyRead()
 {
     QString data = serialPort->readAll();
-    Log() << "recv: " << serialPort->portName() << ": " << data;
+    // Log() << "recv: " << serialPort->portName() << ": " << data;
     QStringList dataList = data.split(",");
-    Log() << "dataList: " << dataList;
+    // Log() << "dataList: " << dataList;
     if (dataList.size() == 2)
     {
         QString tempStr = dataList[0].trimmed();
@@ -153,3 +154,5 @@ void mqttTest::onReportBtClicked()
         Log() << "Failed to report data.";
     }
 }
+
+#endif // _UNIX

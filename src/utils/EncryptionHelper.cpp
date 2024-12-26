@@ -1,3 +1,5 @@
+#ifdef _UNIX
+
 #include "EncryptionHelper.h"
 
 EncryptionHelper::EncryptionHelper(const QString &password)
@@ -81,3 +83,5 @@ int EncryptionHelper::GetEncryptedPassword(const QString &timestamp, QString &en
 
     return 0;
 }
+
+#endif // _UNIX

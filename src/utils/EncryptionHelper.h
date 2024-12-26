@@ -1,3 +1,5 @@
+#ifdef _UNIX
+
 #ifndef ENCRYPTIONHELPER_H
 #define ENCRYPTIONHELPER_H
 
@@ -27,3 +29,5 @@ private:
 };
 
 #endif // ENCRYPTIONHELPER_H
+
+#endif // _UNIX

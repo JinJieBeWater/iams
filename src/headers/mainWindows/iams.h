@@ -88,8 +88,10 @@ private:
     serialPortTest *SerialPortTest;
 #endif // _WIN32
 
+#ifdef _UNIX
     /**
      * @brief   指向 mqttTest 类的指针，用于管理和操作 mqttTest 窗口
      */
     mqttTest *MqttTest;
+#endif // _UNIX
 };

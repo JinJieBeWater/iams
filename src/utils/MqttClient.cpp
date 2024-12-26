@@ -1,3 +1,4 @@
+#ifdef _UNIX
 #include "MqttClient.h"
 
 MQTTAsync_connectOptions connOpts = MQTTAsync_connectOptions_initializer;
@@ -111,17 +112,17 @@ bool MqttClient::connectToServer()
     connOpts.username = usernameStr.c_str(); // std::string 的 c_str() 返回 const char*
     connOpts.password = passwordStr.c_str();
 
-    if (port != 8883)
-    {
-        connOpts.ssl = nullptr;
-    }
-    else
-    {
-        sslOpts.trustStore = "./conf/rootcert.pem";
-        sslOpts.enabledCipherSuites = "TLSv1.3";
-        sslOpts.enableServerCertAuth = 1;
-        connOpts.ssl = &sslOpts;
-    }
+    // if (port != 8883)
+    // {
+    connOpts.ssl = nullptr;
+    // }
+    // else
+    // {
+    //     sslOpts.trustStore = "./conf/rootcert.pem";
+    //     sslOpts.enabledCipherSuites = "TLSv1.3";
+    //     sslOpts.enableServerCertAuth = 1;
+    //     connOpts.ssl = &sslOpts;
+    // }
 
     int rc = -1;
     if ((rc = MQTTAsync_connect(client, &connOpts)) != MQTTASYNC_SUCCESS)
@@ -304,3 +305,5 @@ void MqttClient::onSubscribeFailure(void *context, MQTTAsync_failureData *respon
     Q_UNUSED(response);
     Log() << "Subscription failed, code: " << response->code;
 }
+
+#endif // _UNIX

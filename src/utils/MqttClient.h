@@ -1,3 +1,4 @@
+#ifdef _UNIX
 #ifndef MQTTCLIENT_H
 #define MQTTCLIENT_H
 
@@ -12,8 +13,8 @@
 #include <QMessageBox>
 
 // OpenSSL相关头文件
-#include <openssl/ossl_typ.h>
-#include <openssl/hmac.h>
+// #include <openssl/ossl_typ.h>
+// #include <openssl/hmac.h>
 
 // 自定义工具头文件
 #include <stringutil.h>
@@ -68,3 +69,5 @@ public:
 };
 
 #endif // MQTTCLIENT_H
+
+#endif // _UNIX

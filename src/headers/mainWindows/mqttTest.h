@@ -1,3 +1,5 @@
+#ifdef _UNIX
+
 #ifndef MQTTTEST_H
 #define MQTTTEST_H
 
@@ -40,3 +42,5 @@ private:
     int humidity = 0;
 };
 #endif // MQTTTEST_H
+
+#endif // _UNIX
