@@ -7,6 +7,25 @@ CONFIG += c++17
 # 在 Windows 平台上，设置编译器选项以支持 UTF-8 编码
 win32-msvc*:QMAKE_CXXFLAGS += /utf-8
 
+# 添加头文件路径
+INCLUDEPATH += $$PWD/src/headers \
+    $$PWD/src/headers/mainWindows \
+    $$PWD/src/headers/widgets \
+    $$PWD/src/utils \
+    $$PWD/src/hardware \
+    $$PWD/include/base \
+    $$PWD/include/openssl \
+    $$PWD/include/util \
+    $$PWD/include
+
+CFLAGS = -g -w -lrt -lm -Wl,-z,relro,-z,now,-z,noexecstack -fno-strict-aliasing -fno-omit-frame-pointer -pipe -Wall -fPIC -MD -MP -fno-common -freg-struct-return  -fno-inline -fno-exceptions -Wfloat-equal -Wshadow -Wformat=2 -Wextra -rdynamic -Wl,-z,relro,-z,noexecstack  -fstrength-reduce -fno-builtin -fsigned-char -ffunction-sections -fdata-sections -Wpointer-arith -Wcast-qual -Waggregate-return -Winline -Wunreachable-code -Wcast-align -Wundef -Wredundant-decls  -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs
+# -D _SYS_LOG=1 -shared -fPIC
+#-D Linux=1
+CXXFLAGS = -O2 -g -Wall -fmessage-length=0 -lrt -Wl,-z,relro,-z,now,-z,noexecstack -fno-strict-aliasing -fno-omit-frame-pointer -pipe -Wall -fPIC -MD -MP -fno-common -freg-struct-return  -fno-inline -fno-exceptions -Wfloat-equal -Wshadow -Wformat=2 -Wextra -rdynamic -Wl,-z,relro,-z,noexecstack -fstack-protector-strong -fstrength-reduce -fno-builtin -fsigned-char -ffunction-sections -fdata-sections -Wpointer-arith -Wcast-qual -Waggregate-return -Winline -Wunreachable-code -Wcast-align -Wundef -Wredundant-decls  -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs
+
+
+LIBS += -lpaho-mqtt3as -lssl -lcrypto
+
 # 注释掉了设置应用程序清单文件的代码，该文件用于指定 Windows 应用程序的属性，如管理员权限和 UI 访问权限
 # QMAKE_LFLAGS += "/MANIFESTUAC:\"level='requireAdministrator' uiAccess='false'\""
 
@@ -25,16 +44,7 @@ HEADERS += \
     $$files($$PWD/src/headers/widgets/*.h)
 
     
-# 添加头文件路径
-INCLUDEPATH += $$PWD/src/headers \
-    $$PWD/src/headers/mainWindows \
-    $$PWD/src/headers/widgets \
-    $$PWD/src/utils \
-    $$PWD/src/hardware \
-    $$PWD/include/base \
-    $$PWD/include/openssl \
-    $$PWD/include/util \
-    $$PWD/include
+
 
 
 # 指定 UI 文件路径
