@@ -18,7 +18,7 @@ serialPortTest::serialPortTest(QWidget *parent) : QMainWindow(parent),
     // 设置串口名称为/dev/ttySAC0
     serialPort->setPortName("/dev/ttySAC2");
     // 设置波特率为115200
-    serialPort->setBaudRate(QSerialPort::Baud115200);
+    serialPort->setBaudRate(QSerialPort::Baud9600);
     // 设置数据位为8位
     serialPort->setDataBits(QSerialPort::Data8);
     // 设置校验位为无校验
