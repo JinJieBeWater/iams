@@ -23,6 +23,7 @@ CFLAGS = -g -w -lrt -lm -Wl,-z,relro,-z,now,-z,noexecstack -fno-strict-aliasing 
 #-D Linux=1
 CXXFLAGS = -O2 -g -Wall -fmessage-length=0 -lrt -Wl,-z,relro,-z,now,-z,noexecstack -fno-strict-aliasing -fno-omit-frame-pointer -pipe -Wall -fPIC -MD -MP -fno-common -freg-struct-return  -fno-inline -fno-exceptions -Wfloat-equal -Wshadow -Wformat=2 -Wextra -rdynamic -Wl,-z,relro,-z,noexecstack -fstack-protector-strong -fstrength-reduce -fno-builtin -fsigned-char -ffunction-sections -fdata-sections -Wpointer-arith -Wcast-qual -Waggregate-return -Winline -Wunreachable-code -Wcast-align -Wundef -Wredundant-decls  -Wstrict-prototypes -Wmissing-prototypes -Wnested-externs
 
+# 在 Unix 平台上，设置编译器选项
 unix: {
     LIBS += -lpaho-mqtt3as -lssl -lcrypto
 }
@@ -43,9 +44,6 @@ HEADERS += \
     $$files($$PWD/src/headers/*.h) \
     $$files($$PWD/src/headers/mainWindows/*.h) \
     $$files($$PWD/src/headers/widgets/*.h)
-
-    
-
 
 
 # 指定 UI 文件路径
@@ -128,6 +126,7 @@ DISTFILES += \
     lib/test/test_mqtt4async \
     lib/test/test_mqtt4sync
 
+# 根据平台动态编译
 build_type =
 CONFIG(debug, debug|release) {
     build_type = debug
@@ -136,7 +135,7 @@ CONFIG(debug, debug|release) {
 }
 
 
-# 指定输出目录
+# 指定make输出目录
 DESTDIR = $$PWD/linux_build/$${build_type}/out
 OBJECTS_DIR = $$PWD/linux_build/$${build_type}/obj
 MOC_DIR = $$PWD/linux_build/$${build_type}/moc

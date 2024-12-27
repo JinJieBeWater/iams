@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 
 #ifndef ENCRYPTIONHELPER_H
 #define ENCRYPTIONHELPER_H
@@ -30,4 +30,4 @@ private:
 
 #endif // ENCRYPTIONHELPER_H
 
-#endif // _UNIX
+#endif // _WIN32

@@ -27,10 +27,6 @@ iams::iams(QWidget *parent)
     SerialPortTest = new serialPortTest(this);
 #endif // _WIN32
 
-#ifdef _UNIX
-    MqttTest = new mqttTest(this);
-#endif // _UNIX
-
     // 默认设置用户名和密码
     ui->usernameLineEdit->setText("admin");
     ui->passwordLineEdit->setText("123456");
@@ -44,9 +40,9 @@ iams::iams(QWidget *parent)
     ui->protocolComboBox->addItem("蓝牙串口测试");
 #endif // _WIN32
 
-#ifdef _UNIX
+#ifndef _WIN32
     ui->protocolComboBox->addItem("采集温湿度通过MQTT上传云平台");
-#endif // _UNIX
+#endif // _WIN32
 
     // 设置协议选择器默认选项
     ui->protocolComboBox->setCurrentIndex(0);
@@ -127,10 +123,14 @@ void iams::on_goToTestButton_clicked()
         SerialPortTest->show();
     }
 #endif // _WIN32
-#ifdef _UNIX
+#ifndef _WIN32
     else if (protocol == "采集温湿度通过MQTT上传云平台")
     {
+        if (MqttTest == nullptr)
+        {
+            MqttTest = new mqttTest(this);
+        }
         MqttTest->show();
     }
-#endif // _UNIX
+#endif // _WIN32
 }

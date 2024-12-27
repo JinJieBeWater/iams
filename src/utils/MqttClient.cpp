@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 #include "MqttClient.h"
 
 MQTTAsync_connectOptions connOpts = MQTTAsync_connectOptions_initializer;
@@ -306,4 +306,4 @@ void MqttClient::onSubscribeFailure(void *context, MQTTAsync_failureData *respon
     Log() << "Subscription failed, code: " << response->code;
 }
 
-#endif // _UNIX
+#endif // _WIN32

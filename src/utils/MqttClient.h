@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 #ifndef MQTTCLIENT_H
 #define MQTTCLIENT_H
 
@@ -70,4 +70,4 @@ public:
 
 #endif // MQTTCLIENT_H
 
-#endif // _UNIX
+#endif // _WIN32

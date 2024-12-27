@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 
 #ifndef MQTTTEST_H
 #define MQTTTEST_H
@@ -43,4 +43,4 @@ private:
 };
 #endif // MQTTTEST_H
 
-#endif // _UNIX
+#endif // _WIN32

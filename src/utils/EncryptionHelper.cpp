@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 
 #include "EncryptionHelper.h"
 
@@ -84,4 +84,4 @@ int EncryptionHelper::GetEncryptedPassword(const QString &timestamp, QString &en
     return 0;
 }
 
-#endif // _UNIX
+#endif // _WIN32

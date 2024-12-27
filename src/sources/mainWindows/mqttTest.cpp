@@ -1,4 +1,4 @@
-#ifdef _UNIX
+#ifndef _WIN32
 #include "mqttTest.h"
 #include "ui_mqttTest.h"
 
@@ -117,6 +117,7 @@ void mqttTest::on_readyRead()
         ui->sensorPlainTextEdit->appendPlainText(QString("温度:%1,湿度:%2").arg(temperature).arg(humidity));
     }
 }
+
 void mqttTest::onReportBtClicked()
 {
     QString username = "676b50b12ff1872637ca7a23_myNodeId"; // 设备名称
@@ -153,7 +154,7 @@ void mqttTest::onReportBtClicked()
     if (success)
     {
         Log() << "Data reported successfully!";
-        ui->sensorPlainTextEdit->appendPlainText("数据上报成功: " + payload.toUtf8().constData());
+        ui->sensorPlainTextEdit->appendPlainText("数据上报成功: " + payload);
     }
     else
     {
@@ -162,4 +163,4 @@ void mqttTest::onReportBtClicked()
     }
 }
 
-#endif // _UNIX
+#endif // _WIN32
