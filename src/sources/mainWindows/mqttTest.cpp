@@ -154,13 +154,19 @@ void mqttTest::onReportBtClicked()
     if (success)
     {
         Log() << "Data reported successfully!";
-        ui->sensorPlainTextEdit->appendPlainText("数据上报成功: " + payload);
+        ui->mqttPlainTextEdit->appendPlainText("数据上报成功: " + payload);
     }
     else
     {
         Log() << "Failed to report data.";
-        ui->sensorPlainTextEdit->appendPlainText("数据上报失败");
+        ui->mqttPlainTextEdit->appendPlainText("数据上报失败");
     }
+}
+
+void mqttTest::on_backButton_clicked()
+{
+    this->parentWidget()->show();
+    this->close();
 }
 
 #endif // _WIN32

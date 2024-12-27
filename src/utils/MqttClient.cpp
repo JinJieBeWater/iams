@@ -61,9 +61,7 @@ MqttClient::MqttClient()
         loginTimestamp = nullptr;
 
         Log() << "uri: " << uri.toUtf8().constData();
-        Log() << "uri: " << uri.toUtf8().constData();
 
-        Log() << "clientId: " << clientId.toStdString().c_str();
         Log() << "clientId: " << clientId.toStdString().c_str();
 
         int createRet = MQTTAsync_create(&client, uri.toUtf8().constData(), clientId.toStdString().c_str(), MQTTCLIENT_PERSISTENCE_NONE, nullptr);

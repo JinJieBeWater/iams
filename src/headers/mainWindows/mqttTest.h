@@ -30,6 +30,8 @@ private slots:
     void onReportBtClicked();
     void on_readyRead();
 
+    void on_backButton_clicked();
+
 private:
     Ui::mqttTest *ui;
     MqttClient *mqttClient;
