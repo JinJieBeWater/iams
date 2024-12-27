@@ -8,3 +8,4 @@ iams
 Makefile
 *.o
 linux_build/*
+ppt/*
