@@ -22,5 +22,4 @@
     "qmovie": "cpp"
   },
   // 设置默认shell
-  "terminal.integrated.defaultProfile.windows": "PowerShell",
-}
+  "terminal.integrated.defaultProfile.windows": "PowerShell",}

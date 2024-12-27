@@ -135,7 +135,7 @@ CONFIG(debug, debug|release) {
 }
 
 
-# 指定make输出目录
+# 指定make输出目录 windows编译会失败
 DESTDIR = $$PWD/linux_build/$${build_type}/out
 OBJECTS_DIR = $$PWD/linux_build/$${build_type}/obj
 MOC_DIR = $$PWD/linux_build/$${build_type}/moc
