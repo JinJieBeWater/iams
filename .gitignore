@@ -9,3 +9,4 @@ Makefile
 *.o
 linux_build/*
 ppt/*
+conf/rootcert.pem
